@@ -10,13 +10,7 @@ import string
 class NoteViewSet(viewsets.ModelViewSet):
     queryset = Note.objects.all()
     serializer_class = NotesSerializer
-
-    def destroy(self, request, *args, **kwargs):
-        instance = self.get_object()
-        print(instance)
-        self.perform_destroy(instance)
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
+    
     @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
     def highlight(self, request, *args, **kwargs):
         note = self.get_object()
