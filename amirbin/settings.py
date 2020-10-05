@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import environ
+from celery.schedules import crontab
 
 env = environ.Env(
     # set casting, default value
@@ -20,6 +21,15 @@ env = environ.Env(
 # reading .env file
 environ.Env.read_env()
 
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = backend = 'redis://localhost'
+CELERY_TIMEZONE = 'Europe/London'
+CELERY_BEAT_SCHEDULE = {
+    'cleaner': {
+        'task': 'notepad.tasks.cleaner',
+        'schedule': crontab(minute=0, hour=0, day_of_week='sunday')
+    },
+}
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
