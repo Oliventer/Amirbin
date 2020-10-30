@@ -3,7 +3,12 @@ from notepad.models import Note
 
 
 class NotesSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Note
-        fields = ['url', 'created', 'code', 'language', 'style']
+        fields = ['pk', 'created', 'code', 'delete_after_viewing', 'language', 'style']
+        read_only_fields = ['pk']
+
+
+class UploadFilesSerializer(serializers.Serializer):
+    file = serializers.FileField()
+    delete_after_viewing = serializers.BooleanField(default=False)

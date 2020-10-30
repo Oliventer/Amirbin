@@ -21,7 +21,8 @@ def get_random_string():
 class Note(models.Model):
     note_id = models.CharField(unique=True, primary_key=True, max_length=100, default=get_random_string)
     created = models.DateTimeField(auto_now_add=True)
-    code = models.TextField()
+    code = models.TextField(blank=True, default=print('Hello world!'), max_length=65536)
+    delete_after_viewing = models.BooleanField(default=False)
     linenos = models.BooleanField(default=False)
     style = models.CharField(choices=STYLE_CHOICES, default='native', max_length=100)
     language = models.CharField(choices=LANGUAGE_CHOICES, default='python', max_length=100)
