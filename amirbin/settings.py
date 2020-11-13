@@ -21,15 +21,11 @@ env = environ.Env(
 # reading .env file
 environ.Env.read_env()
 
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = backend = 'redis://localhost'
-CELERY_TIMEZONE = 'Europe/London'
-CELERY_BEAT_SCHEDULE = {
-    'cleaner': {
-        'task': 'notepad.tasks.cleaner',
-        'schedule': crontab(minute=0, hour=0, day_of_week='sunday')
-    },
-}
+CELERY_BROKER_URL = 'pyamqp://guest:guest@localhost:5672/'
+CELERY_RESULT_BACKEND = backend = 'rpc://'
+CELERY_ALWAYS_EAGER = True
+# CELERY_TIMEZONE = 'Europe/London'
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent

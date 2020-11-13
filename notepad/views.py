@@ -1,4 +1,4 @@
-from rest_framework import viewsets, renderers, status, mixins
+from rest_framework import viewsets, status, mixins
 from notepad.models import Note
 from notepad.serializer import NotesSerializer, UploadFilesSerializer
 from rest_framework.decorators import action
@@ -6,7 +6,6 @@ from rest_framework.response import Response
 from datetime import timedelta
 from notepad.services import UploadService
 from django.utils import timezone
-from django.http import HttpResponseRedirect
 
 
 class NoteViewSet(mixins.CreateModelMixin,
@@ -34,11 +33,6 @@ class NoteViewSet(mixins.CreateModelMixin,
 
     def perform_create(self, serializer):
         UploadService(**serializer.data)()
-
-    @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
-    def highlight(self, request, *args, **kwargs):
-        note = self.get_object()
-        return Response(note.highlighted)
 
     @action(detail=False, methods=["POST"])
     def upload(self, request, *args, **kwargs):
