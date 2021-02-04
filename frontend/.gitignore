@@ -21,11 +21,3 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
-
-.env
-db.sqlite3
-celerybeat-schedule
-__pycache__
-venv
-upl.
-upl.txt
