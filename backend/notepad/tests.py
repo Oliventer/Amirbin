@@ -58,5 +58,3 @@ def test_celery_deletes_30day_instances(api):
         api.post('/notes/', {'code': 'CeleryPower', 'delete_after_viewing': False})
     cleaner.apply()
     assert Note.objects.count() == 0
-
-

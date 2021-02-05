@@ -23,6 +23,7 @@ pnpm-debug.log*
 *.sw?
 
 .env
+env
 db.sqlite3
 celerybeat-schedule
 __pycache__
