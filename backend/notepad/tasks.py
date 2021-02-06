@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from notepad.models import Note
-from backend.amirbin.celery import app
+from amirbin.celery import app
 
 
 @app.on_after_finalize.connect

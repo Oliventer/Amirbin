@@ -25,8 +25,9 @@ pnpm-debug.log*
 .env
 env
 db.sqlite3
-celerybeat-schedule
+celerybeat-schedule.*
 __pycache__
 venv
 upl.
 upl.txt
+.pytest_cache
