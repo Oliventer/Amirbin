@@ -2,7 +2,7 @@
   <div class="snippet">
       <span v-for="note in notes " :key="note.pk">
           <p v-if="note.pk ===  $route.params.pk">
-              <pre v-html="note.code"></pre>
+              <pre>{{note.code}}</pre>
           </p>
       </span>
   </div>
