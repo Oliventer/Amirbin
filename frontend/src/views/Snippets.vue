@@ -1,8 +1,9 @@
 <template>
   <div class="snippet">
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow.min.css">
       <span v-for="note in notes " :key="note.pk">
           <p v-if="note.pk ===  $route.params.pk">
-              <pre>{{note.code}}</pre>
+              <pre v-highlightjs><code>{{note.code}}</code></pre>
           </p>
       </span>
   </div>
