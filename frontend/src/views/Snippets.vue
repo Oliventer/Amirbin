@@ -1,11 +1,11 @@
 <template>
   <div class="snippet">
       <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow.min.css">
-      <span v-for="note in notes " :key="note.pk">
-          <p v-if="note.pk ===  $route.params.pk">
-              <highlightjs autodetect :code="note.code" />
-          </p>
-      </span>
+      <ol v-for="note in notes " :key="note.pk">
+          <span v-if="note.pk ===  $route.params.pk">
+              <li v-for="word in TextSplit(note.code)" :key="word.pk"><highlightjs autodetect :code="word" /></li>
+          </span>
+      </ol>
   </div>
 </template>
 
@@ -21,6 +21,9 @@ export default {
     methods: {...mapActions('notes', [
         'GET_NOTES',
     ]),
+    TextSplit(text) {
+        return text.split("\n");
+    }
     },
     mounted() {
         this.GET_NOTES();

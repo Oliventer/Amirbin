@@ -16,6 +16,9 @@
   text-align: justify;
   color: #2c3e50;
   .keep-spaces { white-space: pre-wrap; }
+  .hljs{
+      padding:0em
+  }
 }
 
 #nav {
