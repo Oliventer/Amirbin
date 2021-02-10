@@ -1,10 +1,10 @@
 <template>
   <div class="snippet">
       <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow.min.css">
-      <ol v-for="note in notes " :key="note.pk">
-          <span v-if="note.pk ===  $route.params.pk">
-              <li v-for="word in TextSplit(note.code)" :key="word.pk"><highlightjs autodetect :code="word" /></li>
-          </span>
+      <ol>
+          <li v-for="line in textSplit(snippet.code)" :key="line.pk">
+              <highlightjs autodetect :code="line" />
+          </li>
       </ol>
   </div>
 </template>
@@ -13,20 +13,27 @@
 import { mapActions, mapState } from 'vuex';
 
 export default {
+    props: ['pk'],
     computed: {
-         ...mapState('notes', [
-        'notes',
+         ...mapState('snippet', [
+        'snippet',
     ]),
     },
-    methods: {...mapActions('notes', [
-        'GET_NOTES',
-    ]),
-    TextSplit(text) {
-        return text.split("\n");
+    
+    methods: {
+        ...mapActions('snippet', 
+    { getSnippet: 'GET_SNIPPET',
+    }),
+    getSnippetByUrl() {
+        this.getSnippet(this.pk);
+    },
+    textSplit(code) {
+        return code.split('\n');
     }
     },
+
     mounted() {
-        this.GET_NOTES();
+        this.getSnippetByUrl();
     }, 
 };
-</script> 
+</script>
