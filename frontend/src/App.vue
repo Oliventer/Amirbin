@@ -19,6 +19,13 @@
   .hljs{
       padding:0em
   }
+  li {
+    font-size: 12px;
+}
+
+  li pre {
+    font-size: 15px;
+}
 }
 
 #nav {
