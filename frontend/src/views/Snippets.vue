@@ -16,10 +16,12 @@ import { mapActions, mapState } from 'vuex';
 export default {
     data: function() {
          return {
-             counter: 1
+             counter: 1,
          }
     },
-    props: ['pk'],
+    props: {
+        pk: String
+    },
     computed: {
          ...mapState('snippet', [
         'snippet',

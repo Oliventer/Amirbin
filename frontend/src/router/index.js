@@ -30,7 +30,18 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior(to) {
+      if (to.hash) {
+        let hashNum = parseInt(to.hash.split('#').pop()) - 5
+        if (hashNum>0) {
+            return {selector: `#${hashNum}`}
+        }
+        return {selector: '#1'}
+        
+      }
+      
+  }
 })
 
 export default router
