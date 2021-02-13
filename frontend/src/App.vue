@@ -13,19 +13,7 @@
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: justify;
   color: #2c3e50;
-  .keep-spaces { white-space: pre-wrap; }
-  .hljs{
-      padding:0em
-  }
-  li {
-    font-size: 12px;
-}
-
-  li pre {
-    font-size: 15px;
-}
 }
 
 #nav {

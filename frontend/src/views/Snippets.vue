@@ -90,4 +90,14 @@ export default {
             background-color: inherit !important;
         }
     }
+    li {
+        font-size: 12px;
+    }
+
+    li pre {
+        font-size: 15px;
+    }
+    .hljs{
+      padding:0em !important
+  }
 </style>
