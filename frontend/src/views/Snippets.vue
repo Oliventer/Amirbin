@@ -5,8 +5,13 @@
           <li v-for="line in textSplit(snippet.code)" :key="line.pk" :id="++counter">
               <highlightjs autodetect :code="line" />
           </li>
-          {{resetCounter()}}
       </ol>
+      <span v-if="checkHash">
+          {{setHash()}}
+          {{removeClass()}}
+          {{addClass()}}
+      </span>
+      
   </div>
 </template>
 
@@ -17,6 +22,8 @@ export default {
     data: function() {
          return {
              counter: 1,
+             hash: "",
+             prevId: "",
          }
     },
     props: {
@@ -26,6 +33,9 @@ export default {
          ...mapState('snippet', [
         'snippet',
     ]),
+    checkHash() {
+        return this.$route.hash && this.$route.hash.split('#').pop() !== this.hash
+    }
     },
     
     methods: {
@@ -35,16 +45,49 @@ export default {
     getSnippetByUrl() {
         this.getSnippet(this.pk);
     },
+
     textSplit(code) {
         return code.split('\n');
     },
+
     resetCounter() {
         this.counter = 0;
-    }
     },
 
+    addClass(){
+        document.getElementById(this.hash).classList.add('line-highlight');
+        this.prevId = this.hash;
+    },
+
+    removeClass(){
+        if (this.prevId !== ""){
+            document.getElementById(this.prevId).classList.remove('line-highlight');
+        }
+    },
+
+    setHash() {
+        this.hash = this.$route.hash.split('#').pop();
+    
+    }
+    },
     mounted() {
         this.getSnippetByUrl();
-    }, 
+    },
+    
+    beforeUpdate() {
+        this.resetCounter();
+        if (this.hash !== "") {
+            this.addClass();
+        }
+    },
 };
 </script>
+
+<style lang="less">
+    .line-highlight {
+        background-color: #fffbdd !important;
+        code {
+            background-color: inherit !important;
+        }
+    }
+</style>
