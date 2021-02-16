@@ -4,7 +4,6 @@ export default {
     namespaced: true,
     state: {
         snippet: [],
-        snippet_pk: String,
     },
     actions: {
         async GET_SNIPPET({ commit }, pk) {
@@ -12,17 +11,21 @@ export default {
             commit('SET_SNIPPET', response.data);
 
         },
-        async POST_SNIPPET({commit}, data) {
-            const response = await Vue.$axios.post('/notes/', data);
-            commit('SET_SNIPPET_PK', response.data.pk);
-        }
+        POST_SNIPPET(context, body) {
+            return new Promise ((resolve, reject) => {
+              Vue.$axios.post('/notes/', body).then(result => {
+                resolve(result.data.pk)
+              }).catch(e => {
+                console.log(e)
+                reject('Something went wrong!')
+              })
+            })
+          }
     },
     mutations: {
         SET_SNIPPET: (state, list) => {
             state.snippet = list;
         },
-        SET_SNIPPET_PK: (state, response_pk) => {
-            state.snippet_pk = response_pk
-        },
+
     },
 };

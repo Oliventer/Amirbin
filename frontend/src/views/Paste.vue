@@ -23,12 +23,10 @@
         </select>
         <br><br><br>
         <button v-on:click="notePost()">Post</button>
-        <button v-on:click="$router.push({ name: 'Snippet', params:{ pk: snippet_pk } })">To code</button>
     </div>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
 
 export default {
     data: function() {
@@ -42,17 +40,11 @@ export default {
             },
         }
     },
-    computed: {
-        ...mapState('snippet', [
-        'snippet_pk',
-    ]),
-    },
     methods: {
-        ...mapActions('snippet', 
-    { postSnippet: 'POST_SNIPPET',
-    }),
     notePost() {
-        this.postSnippet(this.body)
+        this.$store.dispatch('snippet/POST_SNIPPET', this.body).then(path => {
+          this.$router.push({ name: 'Snippet', params:{ pk: path } })
+        })
     },
     },
 }
