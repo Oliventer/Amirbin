@@ -19,6 +19,8 @@
 
 #nav {
   padding: 30px;
+  max-width: 160px;
+  margin: auto;
 
   a {
     font-weight: bold;
