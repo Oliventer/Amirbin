@@ -10,6 +10,7 @@
 </template>
 
 <style lang="less">
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -18,10 +19,10 @@
 }
 
 #nav {
-  padding: 30px;
-  max-width: 160px;
+  padding: 10px;
+  max-width: 170px;
   margin: auto;
-
+  
   a {
     font-weight: bold;
     color: #2c3e50;
@@ -31,4 +32,5 @@
     }
   }
 }
+
 </style>

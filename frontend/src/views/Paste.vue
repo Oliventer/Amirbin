@@ -2,7 +2,7 @@
     <div class="content">
         <br>
         <span class="span">Code:</span>
-        <textarea v-model="body.code" placeholder="paste code here" class="textarea"></textarea>
+        <textarea v-model="body.code" placeholder="paste code here" class="form-control"></textarea>
         <br>
         <span class="span">Delete after viewing:  </span>
         <br>
@@ -12,18 +12,18 @@
         </label>
         <br><br>
         <span class="span">Language:</span>
-        <select v-model="body.language" class="select">
+        <select v-model="body.language" class="form-control">
             <option :value="python">Python</option>
             <option :value="js">JavaScript</option>
         </select>
         <br><br>
         <span class="span">Style:</span>
-        <select v-model="body.style" class="select">
+        <select v-model="body.style" class="form-control">
             <option>friendly</option>
             <option>native</option>
         </select>
         <br><br><br>
-        <button v-on:click="notePost()" class="button">Post</button>
+        <button v-on:click="notePost()" class="btn btn-primary btn-lg btn-block">Post</button>
     </div>
 </template>
 
@@ -51,64 +51,39 @@ export default {
 </script>
 
 <style lang="less">
+body {
+        background-color: #F5FFFA;
+    }
     .content {
         max-width: 1200px;
         margin: auto;
-        border: 4px double gray;
-        border-bottom-left-radius: 200px;
-        border-bottom-right-radius: 200px;
-        border-top-right-radius: 200px;
-        background: #D9D6CF;
-        height: 730px;
+        background: #F0F8FF;
+        height: 775px;
+        border: 1px ridge silver;
     }
-    .textarea {
-        resize: none;
-        width: 660px !important;
-        height: 430px !important;
-        display: block;
-        font-size:20px;
-        margin-left: 263px;
-        margin-right: auto;
-    }
-    .select {
+
+    .form-control {
         display: block;
         margin-left: 266px;
         width: 660px;
-        height: 22px;
-        
+        height: 35px;
+        resize: none;    
     }
+
+    textarea.form-control {
+        height:410px;
+    }
+    
     .span {
         display: block;
-        padding-left: 166px;
-        width: 85px;
+        padding-left: 10px;
+        margin-left: 130px;
+        width: 120px;
         height: 25px; 
         text-align: right;
         position: absolute;
     }
-    .button{
-        display:inline-block;
-        padding:1.2em 5.0em;
-        margin-left: 514px;
-        border-radius:2em;
-        box-sizing: border-box;
-        text-decoration:none;
-        font-family:'Roboto',sans-serif;
-        font-weight:300;
-        color:#FFFFFF;
-        background-color:#4eb5f1;
-        text-align:center;
-        transition: all 0.2s;
-    }
-    .button:hover {
-        background-color:#4095c6;
-    }
-    @media all and (max-width: 30em){
-        .button {
-            display: block;
-            margin: 0.2em auto;
-        }
-    }
-
+    
     .container {
         display: block;
         position: relative;
@@ -135,7 +110,7 @@ export default {
         left: 0;
         height: 25px;
         width: 25px;
-        background-color: white;
+        background-color: #F5F5F5;
     }
 
     .container:hover input ~ .checkmark {

@@ -98,6 +98,7 @@ export default {
         font-size: 15px;
     }
     .hljs{
-      padding:0em !important
+      padding:0em !important;
+      background: none !important;
   }
 </style>

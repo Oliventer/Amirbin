@@ -5,6 +5,7 @@ import store from './store'
 
 import axios from 'axios'
 import hljs from 'highlight.js'
+import "bootstrap/dist/css/bootstrap.min.css";
 
 
 Vue.$axios = axios.create();
