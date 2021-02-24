@@ -1,9 +1,9 @@
 <template>
-  <div class="snippet">
+  <div>
       <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow.min.css">
       <ol>
-          <li v-for="line in textSplit(snippet.code)" :key="line.pk" :id="++counter">
-              <highlightjs autodetect :code="line" />
+          <li v-for="line in textSplit(snippet.code)" :key="line.pk" :id="line.pk">
+              <highlightjs autodetect :code="line.name" />
           </li>
       </ol>
       <span v-if="checkHash">
@@ -21,7 +21,6 @@ import { mapActions, mapState } from 'vuex';
 export default {
     data: function() {
          return {
-             counter: 1,
              hash: "",
              prevId: "",
          }
@@ -42,12 +41,17 @@ export default {
         ...mapActions('snippet', 
     { getSnippet: 'GET_SNIPPET',
     }),
-    getSnippetByUrl() {
-        this.getSnippet(this.pk);
+    async getSnippetByUrl() {
+        await this.getSnippet(this.pk);
     },
 
     textSplit(code) {
-        return code.split('\n');
+        let counter = 0
+        let result = code.split('\n').map(function(elem) {
+            counter++
+            return {"pk": counter,"name": elem};
+        });
+        return result
     },
 
     resetCounter() {

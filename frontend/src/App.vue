@@ -10,7 +10,9 @@
 </template>
 
 <style lang="less">
-
+body {
+        background-color: #F5FFFA !important;
+    }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -28,7 +30,7 @@
     color: #2c3e50;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: #0069FF;
     }
   }
 }

@@ -51,9 +51,6 @@ export default {
 </script>
 
 <style lang="less">
-body {
-        background-color: #F5FFFA;
-    }
     .content {
         max-width: 1200px;
         margin: auto;
