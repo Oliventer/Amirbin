@@ -26,7 +26,8 @@ export default {
          }
     },
     props: {
-        pk: String
+        pk: String,
+        isCodeExist: Boolean
     },
     computed: {
          ...mapState('snippet', [
@@ -53,11 +54,7 @@ export default {
         });
         return result
     },
-
-    resetCounter() {
-        this.counter = 0;
-    },
-
+    
     addClass(){
         document.getElementById(this.hash).classList.add('line-highlight');
         this.prevId = this.hash;
@@ -75,11 +72,12 @@ export default {
     }
     },
     mounted() {
-        this.getSnippetByUrl();
+        if (!this.isCodeExist) {
+            this.getSnippetByUrl();
+        }
     },
     
     beforeUpdate() {
-        this.resetCounter();
         if (this.hash !== "") {
             this.addClass();
         }

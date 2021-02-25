@@ -11,10 +11,11 @@ export default {
             commit('SET_SNIPPET', response.data);
 
         },
-        POST_SNIPPET(context, body) {
+        POST_SNIPPET({ commit }, body) {
             return new Promise ((resolve, reject) => {
               Vue.$axios.post('/notes/', body).then(result => {
                 resolve(result.data.pk)
+                commit('SET_SNIPPET', result.data);
               }).catch(e => {
                 console.log(e)
                 reject('Something went wrong!')

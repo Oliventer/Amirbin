@@ -44,7 +44,7 @@ export default {
     methods: {
     async notePost() {
         let path = await this.$store.dispatch('snippet/POST_SNIPPET', this.body)
-          this.$router.push({ name: 'Snippet', params:{ pk: path } })   
+          this.$router.push({ name: 'Snippet', params:{ pk: path, isCodeExist: true } })   
     },
     },
 }
