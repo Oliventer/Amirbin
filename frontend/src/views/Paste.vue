@@ -2,6 +2,7 @@
     <div class="content">
         <br>
         <span class="span">Code:</span>
+        <input class= "input-file" type="file" id="file" ref="file" v-on:change="readFile()"/>
         <textarea v-model="body.code" placeholder="paste code here" class="form-control"></textarea>
         <br>
         <span class="span">Delete after viewing:  </span>
@@ -37,7 +38,7 @@ export default {
                 delete_after_viewing: false,
                 delete_time: null,
                 language: '',
-                style: ''
+                style: '',
             },
         }
     },
@@ -46,11 +47,31 @@ export default {
         let path = await this.$store.dispatch('snippet/POST_SNIPPET', this.body)
           this.$router.push({ name: 'Snippet', params:{ pk: path, isCodeExist: true } })   
     },
+     readFile(){
+        let file = this.$refs.file.files[0];
+        let reader = new FileReader();
+        var vm = this
+
+        reader.onload = function(e){
+            vm.body.code = e.target.result
+        } 
+
+        reader.readAsText(file);
+    }
     },
 }
 </script>
 
 <style lang="less">
+    .input-file {
+        opacity: 0;
+        display: block;
+        width: 660px;
+        height: 410px;
+        margin-left: 266px;
+        position: absolute;
+        cursor: pointer;
+    }
     .content {
         max-width: 1200px;
         margin: auto;
