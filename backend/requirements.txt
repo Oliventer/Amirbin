@@ -7,3 +7,4 @@ djangorestframework==3.11.1
 Pygments==2.6.1
 redis==3.5.3
 requests==2.24.0
+django-username-email==2.4.2
