@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'users.apps.UsersConfig',
     'notepad.apps.NotepadConfig',
+    'tokens.apps.TokensConfig',
 ]
 
 MIDDLEWARE = [
