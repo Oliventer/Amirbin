@@ -16,3 +16,6 @@ class PaswordlessToken(models.Model):
     def mark_as_used(self):
         self.used = timezone.now()
         self.save()
+        
+    def genetate_url(self):
+        return f"http://AbstractURL/auth/{str(self.token)}"
