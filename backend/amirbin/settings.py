@@ -21,8 +21,8 @@ env = environ.Env(
 # reading .env file
 environ.Env.read_env()
 
-CELERY_BROKER_URL = 'pyamqp://guest:guest@localhost:5672/'
-CELERY_RESULT_BACKEND = backend = 'rpc://'
+CELERY_BROKER_URL = 'redis://redis:6379'
+CELERY_RESULT_BACKEND = 'redis://redis:6379'
 CELERY_ALWAYS_EAGER = True
 # CELERY_TIMEZONE = 'Europe/London'
 
