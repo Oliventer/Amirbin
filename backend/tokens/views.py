@@ -33,12 +33,13 @@ class PaswordlessRegistrationView(APIView):
         
         user_to_register = User.objects.create(email=user_email)
         token = PaswordlessToken.objects.create(user=user_to_register)
+        send_mail.delay(user_email, "registration", token.genetate_url())
         return Response(status=status.HTTP_201_CREATED)
             
             
 class CheckPaswordlessTokenView(APIView):
     def get(self, request, token_id):
-        paswordless_token = PaswordlessToken.objects.get()(token_id=token_id)
+        paswordless_token = PaswordlessToken.objects.get(token_id=token_id)
         
         if paswordless_token is None:
             return Response(data = {'Token not found'}, status=status.HTTP_404_NOT_FOUND)
