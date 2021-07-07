@@ -34,7 +34,7 @@ class NoteViewSet(mixins.CreateModelMixin,
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        note_instance = UploadService(**serializer.data)()
+        note_instance = UploadService(request.user.pk, **serializer.data)()
         headers = self.get_success_headers(serializer.data)
         return Response({'pk': note_instance.pk, 'code': note_instance.code}, status=status.HTTP_201_CREATED, headers=headers)
 

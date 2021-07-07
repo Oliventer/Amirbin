@@ -2,9 +2,10 @@ from notepad.serializer import UploadFilesSerializer, NotesSerializer
 
 
 class UploadService:
-    def __init__(self, code, delete_after_viewing=False, delete_time=None, language="python", style="native"):
+    def __init__(self, request_user, code, user, delete_after_viewing=False, delete_time=None, language="python", style="native"):
         self.data = {
             "code": str(code),
+            "user": request_user,
             "delete_after_viewing": delete_after_viewing,
             "delete_time": delete_time,
             "language": language,

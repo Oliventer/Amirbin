@@ -5,7 +5,7 @@ from notepad.models import Note
 class NotesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Note
-        fields = ['pk', 'created', 'code', 'delete_after_viewing', 'delete_time', 'language', 'style']
+        fields = ['pk', 'created', 'code', 'user', 'delete_after_viewing', 'delete_time', 'language', 'style']
         read_only_fields = ['pk']
 
 

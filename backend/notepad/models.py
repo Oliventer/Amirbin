@@ -18,6 +18,7 @@ def get_random_string():
 
 class Note(models.Model):
     note_id = models.CharField(unique=True, primary_key=True, max_length=100, default=get_random_string)
+    user = models.ForeignKey('users.User', on_delete=models.CASCADE, null=True)
     created = models.DateTimeField(auto_now_add=True)
     code = models.TextField(blank=True, default='', max_length=65536)
     delete_after_viewing = models.BooleanField(default=False)

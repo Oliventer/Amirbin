@@ -10,6 +10,7 @@ from tokens.serializers import PaswordlessTokenSerializer
 from rest_framework.authtoken.models import Token
 from datetime import datetime, timedelta
 from django.utils import timezone
+from django.contrib.auth import login
 
 
 class PasswordlessTokenView(APIView):
@@ -45,6 +46,7 @@ class CheckPaswordlessTokenView(APIView):
             return Response(data = {'Token not found'}, status=status.HTTP_404_NOT_FOUND)
         
         token = Token.objects.create(user=paswordless_token.user)
+        login(request, paswordless_token.user)
         paswordless_token.mark_as_used()
         return Response({'token': token.key}, status=status.HTTP_200_OK)
         
