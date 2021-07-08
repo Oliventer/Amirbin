@@ -1,5 +1,5 @@
 from .models import Note, get_random_string
-from .services import UploadService
+from .services.upload import UploadService
 import pytest
 from rest_framework.test import APIClient
 from freezegun import freeze_time
