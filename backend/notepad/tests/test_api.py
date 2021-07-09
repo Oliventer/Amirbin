@@ -1,6 +1,8 @@
-from .models import Note, get_random_string
-from .services.upload import UploadService
+from notepad.services.upload import UploadService
+from notepad.services.notes_limit import NotesLimitError
 import pytest
+from notepad.models import Note
+from mixer.backend.django import mixer
 from rest_framework.test import APIClient
 from freezegun import freeze_time
 from notepad.tasks import cleaner
@@ -9,21 +11,19 @@ pytestmark = [pytest.mark.django_db]
 
 
 @pytest.fixture
-def api():
-    return APIClient()
+def user():
+    return mixer.blend('users.User', email='oliventer@gmail.com', subscription='B')
 
 
-def test_string_length_equal_eight():
-    text = get_random_string()
-    assert len(text) == 8
+@pytest.fixture
+def api(user):
+    client = APIClient()
+    client.force_authenticate(user=user)
+    return client
 
 
-def test_two_strings_are_different():
-    assert get_random_string() != get_random_string()
-
-
-def test_service_object_create_valid_instance():
-    UploadService('Грузите апельсины бочками')()
+def test_service_object_create_valid_instance(user):
+    UploadService(user, 'Грузите апельсины бочками')()
     assert Note.objects.last().code == 'Грузите апельсины бочками'
 
 

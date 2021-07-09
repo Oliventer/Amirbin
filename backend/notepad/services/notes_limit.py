@@ -19,4 +19,3 @@ class NotesLimitService:
         allowed = allowed_amount[self.request_user.subscription]
         if notes_amount >= allowed:
             raise NotesLimitError
-  
