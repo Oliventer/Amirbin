@@ -22,6 +22,7 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
+# Template ends here 
 .env
 env
 db.sqlite3
@@ -32,3 +33,4 @@ upl.
 upl.txt
 .pytest_cache
 backend/celerybeat-schedule
+.coverage
