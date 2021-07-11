@@ -21,11 +21,20 @@ def api(user):
     client.force_authenticate(user=user)
     return client
 
+@pytest.fixture
+def mock_allowed_amount(monkeypatch):
+    patched = {'B': 0}
+    monkeypatch.setattr('notepad.services.notes_limit.allowed_amount', patched)
+
 
 def test_service_object_create_valid_instance(user):
     UploadService(user, 'Грузите апельсины бочками')()
     assert Note.objects.last().code == 'Грузите апельсины бочками'
-
+    
+def test_notes_limit_service(user, mock_allowed_amount):
+    with pytest.raises(NotesLimitError):
+        UploadService(user, 'test')()
+         
 
 def test_model_instance_creation(api):
     api.post('/notes/', {'code': 'NewIdea', 'delete_after_viewing': False})
