@@ -50,7 +50,7 @@ def test_delete_after_first_view(api):
 
 
 def test_upload_endpoint(api):
-    with open('upl.txt', 'rb') as f:
+    with open('notepad/tests/upl.txt', 'rb') as f:
         response = api.post('/notes/upload/', {'file': f})
     assert response.status_code == 201
     assert Note.objects.last().code == 'Графиня изменившимся лицом бежит пруду'
