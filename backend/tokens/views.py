@@ -11,26 +11,22 @@ from rest_framework.authtoken.models import Token
 from datetime import datetime, timedelta
 from django.utils import timezone
 from django.contrib.auth import login
+from django.shortcuts import get_object_or_404
 
 
-class PasswordlessTokenView(APIView):
+class PasswordlessLoginView(APIView):
     def get(self, request, user_email):
-        user = User.objects.filter(email = user_email).first()
-        
-        if user is None:
-            return Response(data = {'No such user registred'}, status=status.HTTP_404_NOT_FOUND)
-        
+        user = get_object_or_404(User, email=user_email)
+
         token = PaswordlessToken.objects.create(user=user)
-        send_mail.delay(user_email, "authentification", token.genetate_url())
+        send_mail.delay(user_email, "login", token.genetate_url())
         return Response(status=status.HTTP_200_OK)
 
 
 class PaswordlessRegistrationView(APIView):
     def get(self, request, user_email):
-        user = User.objects.filter(email = user_email).first()
-
-        if user is not None:
-            return Response(data = {'Already registred'}, status=status.HTTP_406_NOT_ACCEPTABLE)
+        if User.objects.filter(email=user_email).exists():
+            return Response(data = {'Already registred'}, status=status.HTTP_403_FORBIDDEN)
         
         user_to_register = User.objects.create(email=user_email)
         token = PaswordlessToken.objects.create(user=user_to_register)

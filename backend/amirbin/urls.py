@@ -17,7 +17,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from notepad.views import NoteViewSet
 from users.views import UserViewset
-from tokens.views import PasswordlessTokenView, CheckPaswordlessTokenView, PaswordlessTokenViewSet, PaswordlessRegistrationView
+from tokens.views import PasswordlessLoginView, CheckPaswordlessTokenView, PaswordlessTokenViewSet, PaswordlessRegistrationView
 
 router = DefaultRouter()
 router.register('notes', NoteViewSet)
@@ -27,7 +27,7 @@ router.register('paswordlessTokens', PaswordlessTokenViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('auth/', include('rest_framework.urls')),
-    path('token/login/<str:user_email>/', PasswordlessTokenView.as_view()),
+    path('token/login/<str:user_email>/', PasswordlessLoginView.as_view()),
     path('token/auth/<str:user_email>/', PaswordlessRegistrationView.as_view()),
     path('token/check/<str:token_id>/', CheckPaswordlessTokenView.as_view()),
     ]
