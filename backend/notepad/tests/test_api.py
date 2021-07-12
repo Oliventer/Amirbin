@@ -11,15 +11,9 @@ pytestmark = [pytest.mark.django_db]
 
 
 @pytest.fixture
-def user():
-    return mixer.blend('users.User', email='oliventer@gmail.com', subscription='B')
-
-
-@pytest.fixture
-def api(user):
-    client = APIClient()
-    client.force_authenticate(user=user)
-    return client
+def auth_api(api, user):
+    api.force_authenticate(user=user)
+    return api
 
 @pytest.fixture
 def mock_allowed_amount(monkeypatch):
@@ -36,34 +30,34 @@ def test_notes_limit_service(user, mock_allowed_amount):
         UploadService(user, 'test')()
          
 
-def test_model_instance_creation(api):
-    api.post('/notes/', {'code': 'NewIdea', 'delete_after_viewing': False})
+def test_model_instance_creation(auth_api):
+    auth_api.post('/notes/', {'code': 'NewIdea', 'delete_after_viewing': False})
     assert Note.objects.last().code == 'NewIdea'
 
 
-def test_delete_after_first_view(api):
-    api.post('/notes/', {'code': 'Does not matter', 'delete_after_viewing': True})
+def test_delete_after_first_view(auth_api):
+    auth_api.post('/notes/', {'code': 'Does not matter', 'delete_after_viewing': True})
     note_id = Note.objects.last().note_id
-    api.get(f'/notes/{note_id}/')
+    auth_api.get(f'/notes/{note_id}/')
     with pytest.raises(Note.DoesNotExist):
         Note.objects.get(pk=note_id)
 
 
-def test_upload_endpoint(api):
+def test_upload_endpoint(auth_api):
     with open('notepad/tests/upl.txt', 'rb') as f:
-        response = api.post('/notes/upload/', {'file': f})
+        response = auth_api.post('/notes/upload/', {'file': f})
     assert response.status_code == 201
     assert Note.objects.last().code == 'Графиня изменившимся лицом бежит пруду'
 
 
-def test_update_request_does_not_work(api):
-    api.post('/notes/', {'code': 'Hello', 'delete_after_viewing': False})
-    api.put(f'/notes/{Note.objects.last().note_id}', {'code': 'world!', 'delete_after_viewing': False})
+def test_can_not_put(auth_api):
+    auth_api.post('/notes/', {'code': 'Hello', 'delete_after_viewing': False})
+    auth_api.put(f'/notes/{Note.objects.last().note_id}', {'code': 'world!', 'delete_after_viewing': False})
     assert Note.objects.last().code == 'Hello'
 
 
-def test_celery_deletes_30day_instances(api):
+def test_celery_deletes_old_instances(auth_api):
     with freeze_time("2020-01-14"):
-        api.post('/notes/', {'code': 'CeleryPower', 'delete_after_viewing': False})
+        auth_api.post('/notes/', {'code': 'CeleryPower', 'delete_after_viewing': False})
     cleaner.apply()
     assert Note.objects.count() == 0
