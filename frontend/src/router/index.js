@@ -30,6 +30,11 @@ const routes = [
     name: 'Paste',
     component: () => import(/* webpackChunkName: "about" */ '../views/Paste.vue'),  
   },
+  {
+    path: '/subscribe',
+    name: 'Subscribe',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Subscribe.vue'),
+  },
 ]
 
 const router = new VueRouter({
