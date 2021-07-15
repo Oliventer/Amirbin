@@ -18,6 +18,7 @@ from rest_framework.routers import DefaultRouter
 from notepad.views import NoteViewSet
 from users.views import UserViewset
 from tokens.views import PasswordlessLoginView, CheckPaswordlessTokenView, PaswordlessTokenViewSet, PaswordlessRegistrationView
+from subscriptions.views import CheckoutSessionCreationView, StripeKeyView
 
 router = DefaultRouter()
 router.register('notes', NoteViewSet)
@@ -30,4 +31,6 @@ urlpatterns = [
     path('token/login/<str:user_email>/', PasswordlessLoginView.as_view()),
     path('token/auth/<str:user_email>/', PaswordlessRegistrationView.as_view()),
     path('token/check/<str:token_id>/', CheckPaswordlessTokenView.as_view()),
+    path('subscribe/key/', StripeKeyView.as_view()),
+    path('subscribe/<str:product_name>', CheckoutSessionCreationView.as_view()),
     ]

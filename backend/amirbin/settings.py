@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'notepad.apps.NotepadConfig',
     'tokens.apps.TokensConfig',
+    'subscriptions.apps.SubscriptionsConfig'
 ]
 
 MIDDLEWARE = [
@@ -120,6 +121,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+#Stripe
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51JDCfeB9cEHLnTYOA8vPjEpqNBiCJ4p1mY6laZ03IvrFto3C1gPoHSrcKbfCioXksgHv4z34pHpuJL8Y15drMSaE00BgWTXwNj'
+STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
+
+#Frontend
+FRONTEND_URL = 'http://localhost:8000/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/

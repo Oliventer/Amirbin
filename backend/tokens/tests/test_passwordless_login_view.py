@@ -23,4 +23,3 @@ def test_login_endpoint(api, user):
 def test_login_view_create_token(api, user):
     request = api.get(f'/token/login/{user.email}/')
     assert PaswordlessToken.objects.get(user=user)
- 
