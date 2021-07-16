@@ -19,6 +19,7 @@ class StripeCheckoutService:
                 success_url = settings.FRONTEND_URL + 'success',
                 cancel_url = settings.FRONTEND_URL + 'cancel',
                 payment_method_types =['card'],
+                metadata = {'subscription_name': self.product_name[0]},
                 mode ='subscription',
                 line_items = [
                     {
@@ -28,4 +29,3 @@ class StripeCheckoutService:
                 ]
             )
         return session
-        

@@ -15,7 +15,7 @@ export default {
         },
         async BUY_SUBSCRIPTION({ commit }, product_id) {
             return new Promise ((resolve, reject) => {
-                Vue.$axios.post('/subscribe/' + product_id).then(result => {
+                Vue.$axios.post('/subscribe/' + product_id + '/').then(result => {
                   resolve(result)
                   commit('SET_STATUS_CODE', result.status);
                   commit('SET_SESSION_ID', result.data['sessionId']);
