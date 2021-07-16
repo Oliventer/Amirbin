@@ -4,9 +4,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import redirect
 from users.models import User
+import stripe
 from subscriptions.services.stripe_checkout import StripeCheckoutService
 from rest_framework.permissions import IsAuthenticated
-
+from subscriptions.models import StripeCustomer
+from subscriptions.services.stripe_payment_handler import PaymentHandlingService
 
 class StripeKeyView(APIView):
     def get(seld, request):
@@ -21,3 +23,15 @@ class CheckoutSessionCreationView(APIView):
             return Response({'sessionId': checkout_session['id']}, status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
+
+class StripeWebhook(APIView):
+    def post(self, request):
+        try:
+            PaymentHandlingService(request.body, request.META['HTTP_STRIPE_SIGNATURE'])()
+        except ValueError:
+            return Response(status=400)
+        except stripe.error.SignatureVerificationError:
+            return Response(status=400)
+
+        return Response(status=200)
