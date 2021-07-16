@@ -28,12 +28,22 @@ const routes = [
   {
     path: '/paste',
     name: 'Paste',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Paste.vue'),  
+    component: () => import('../views/Paste.vue'),  
   },
   {
     path: '/subscribe',
     name: 'Subscribe',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Subscribe.vue'),
+    component: () => import('../views/Subscribe.vue'),
+  },
+  {
+    path: '/success',
+    name: 'SuccessPage',
+    component: () => import('../components/SuccessPage.vue'),
+  },
+  {
+    path: '/cancel',
+    name: 'CancelPage',
+    component: () => import('../components/CancelPage.vue'),
   },
 ]
 

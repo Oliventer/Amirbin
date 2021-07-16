@@ -126,7 +126,7 @@ STRIPE_PUBLISHABLE_KEY = 'pk_test_51JDCfeB9cEHLnTYOA8vPjEpqNBiCJ4p1mY6laZ03IvrFt
 STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
 
 #Frontend
-FRONTEND_URL = 'http://localhost:8000/'
+FRONTEND_URL = 'http://localhost:8080/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/

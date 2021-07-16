@@ -1,5 +1,6 @@
 from amirbin import settings
 import stripe
+from users.models import User
 
 products = {'Premium': 'price_1JDCyVB9cEHLnTYOxmajeYKc', 'Unlimited': 'price_1JDD1JB9cEHLnTYOn9k5yFz1'}
 
@@ -14,9 +15,9 @@ class StripeCheckoutService:
         price_id = products[self.product_name]
         
         session = checkout_session = stripe.checkout.Session.create(
-                client_reference_id = self.user_id,
-                success_url = settings.FRONTEND_URL + 'notes/1/',
-                cancel_url = settings.FRONTEND_URL + 'notes/2/',
+                client_reference_id = self.user_id, 
+                success_url = settings.FRONTEND_URL + 'success',
+                cancel_url = settings.FRONTEND_URL + 'cancel',
                 payment_method_types =['card'],
                 mode ='subscription',
                 line_items = [
