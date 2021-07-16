@@ -33,4 +33,5 @@ upl.
 upl.txt
 .pytest_cache
 backend/celerybeat-schedule
-.coverage
+backend/.coverage
+stripe
