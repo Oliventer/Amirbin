@@ -11,6 +11,7 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
+import {loadStripe} from '@stripe/stripe-js';
 
 export default {
     data: function() {
@@ -36,7 +37,11 @@ export default {
                   resolve(result)
                 })
               })
-        console.log(this.stripe_session_id)
+        const stripe = await loadStripe(this.stripe_key);
+        if (this.status_code === 201)
+        {
+            return stripe.redirectToCheckout({sessionId: this.stripe_session_id})
+        } 
     },
 
     },
