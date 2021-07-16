@@ -7,6 +7,8 @@ import axios from 'axios'
 import hljs from 'highlight.js'
 import "bootstrap/dist/css/bootstrap.min.css";
 
+axios.defaults.xsrfHeaderName= "X-CSRFTOKEN"
+axios.defaults.xsrfCookieName = "csrftoken";
 
 Vue.$axios = axios.create();
 
