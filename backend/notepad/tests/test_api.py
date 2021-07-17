@@ -11,11 +11,6 @@ pytestmark = [pytest.mark.django_db]
 
 
 @pytest.fixture
-def auth_api(api, user):
-    api.force_authenticate(user=user)
-    return api
-
-@pytest.fixture
 def mock_allowed_amount(monkeypatch):
     patched = {'B': 0}
     monkeypatch.setattr('notepad.services.notes_limit.allowed_amount', patched)

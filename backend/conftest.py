@@ -10,3 +10,8 @@ def api():
 @pytest.fixture
 def user():
     return mixer.blend('users.User', email='oliventer@gmail.com', subscription='B')
+
+@pytest.fixture
+def auth_api(api, user):
+    api.force_authenticate(user=user)
+    return api
