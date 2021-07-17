@@ -30,8 +30,8 @@ class StripeWebhook(APIView):
         try:
             PaymentHandlingService(request.body, request.META['HTTP_STRIPE_SIGNATURE'])()
         except ValueError:
-            return Response(status=400)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         except stripe.error.SignatureVerificationError:
-            return Response(status=400)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
-        return Response(status=200)
+        return Response(status=status.HTTP_200_OK)
