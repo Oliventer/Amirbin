@@ -24,3 +24,9 @@ def test_checkout_session_bad_product_name(auth_api):
 def test_checkout_session_unauthenticated(api):
      response = api.post('/subscribe/Premium/')
      assert response.status_code == 403
+
+
+def test_webhook_endpoint(api):
+    response = api.post('/stripe/webhook/', 
+                        HTTP_STRIPE_SIGNATURE='TEST')
+    assert response.status_code == 400
