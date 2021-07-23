@@ -1,5 +1,5 @@
 # Django and Vue.js project, something like hastebin, but much more straightforward.
-##Backend endpoints:
+## Backend endpoints:
 + GET /notes/- notes list.
 + GET /notes/:pk/ - specific note, where pk it's 8-characters random string.
 + POST /notes/upload/ - enpoint for file upload. Converts files to note.
@@ -14,4 +14,4 @@
 + POST /subscribe/<str:product_name>/ - Create stripe checkout session. Returns checkout session id.
 + POST /stripe/webhook/ - Webhook for payment confirmation. Takes stripe event object, creates customer and updates user privilege.
 
-#WIP: Login on frontend      
+# WIP: Login on frontend      
