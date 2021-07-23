@@ -15,7 +15,7 @@ from django.shortcuts import get_object_or_404
 
 
 class PasswordlessLoginView(APIView):
-    def get(self, request, user_email):
+    def post(self, request, user_email):
         user = get_object_or_404(User, email=user_email)
 
         token = PaswordlessToken.objects.create(user=user)
@@ -24,7 +24,7 @@ class PasswordlessLoginView(APIView):
 
 
 class PaswordlessRegistrationView(APIView):
-    def get(self, request, user_email):
+    def post(self, request, user_email):
         if User.objects.filter(email=user_email).exists():
             return Response(data = {'Already registred'}, status=status.HTTP_403_FORBIDDEN)
         
@@ -35,7 +35,7 @@ class PaswordlessRegistrationView(APIView):
             
             
 class CheckPaswordlessTokenView(APIView):
-    def get(self, request, token_id):
+    def post(self, request, token_id):
         paswordless_token = PaswordlessToken.objects.get(token_id=token_id)
         
         if paswordless_token is None:
@@ -44,7 +44,7 @@ class CheckPaswordlessTokenView(APIView):
         token = Token.objects.create(user=paswordless_token.user)
         login(request, paswordless_token.user)
         paswordless_token.mark_as_used()
-        return Response({'token': token.key}, status=status.HTTP_200_OK)
+        return Response({'token': token.key}, status=status.HTTP_201_CREATED)
         
         
 class PaswordlessTokenViewSet(ModelViewSet):
